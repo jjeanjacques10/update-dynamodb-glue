@@ -46,5 +46,11 @@ You can see the following records in the DynamoDB table.
 | 5 | Charmeleon | fire |
 | 6 | Charizard | fire |
 
+## References
+
+- [AWS Glue](https://aws.amazon.com/glue/)
+- [PySpark Glue Tutorial](https://github.com/johnny-chivers/pyspark-glue-tutorial)
+- [How to export an Amazon DynamoDB table to Amazon S3 using AWS Step Functions and AWS Glue](https://aws.amazon.com/blogs/big-data/how-to-export-an-amazon-dynamodb-table-to-amazon-s3-using-aws-step-functions-and-aws-glue/)
+
 ---
 Developed by [Jean Jacques Barros](https://github.com/jjeanjacques10)
