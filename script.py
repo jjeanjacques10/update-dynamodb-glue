@@ -1,18 +1,21 @@
 import sys
 import os
-import random
+import requests
+from awsglue.dynamicframe import DynamicFrame
 from awsglue.transforms import *
 from awsglue.utils import getResolvedOptions
 from pyspark.context import SparkContext
 from awsglue.context import GlueContext
-from awsglue.dynamicframe import DynamicFrame
 from awsglue.job import Job
-import requests
 
-sc = SparkContext.getOrCreate()
+## @params: [JOB_NAME]
+args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+
+sc = SparkContext()
 glueContext = GlueContext(sc)
 spark = glueContext.spark_session
 job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
 
 TABLE_NAME = "tb_pokemons"
 
