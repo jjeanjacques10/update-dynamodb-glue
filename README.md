@@ -22,18 +22,42 @@ Create a DynamoDB table with the following schema.
 | number | The pokemon number |
 | name | The pokemon name |
 
-### 2. Create a Glue job
+### 2. Create Role
+
+Create a role with the following permissions to access DynamoDB and S3.
+
+``` json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "glue.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+```
+
+Add policies:
+
+- DynamoDBFullAccess
+- S3FullAccess
+
+### 3. Create a Glue job
 
 Create a Glue job with the following settings.
 
 - Job type: Spark
 - Job language: Python
-- Glue version: 2.0
+- Glue version: 3.0
 - Number of workers: 2
 
-### 3. Run the Glue job on AWS Console
+### 4. Run the Glue job on AWS Console
 
-### 4. Check the DynamoDB table
+### 5. Check the DynamoDB table
 
 You can see the following records in the DynamoDB table.
 
@@ -49,6 +73,7 @@ You can see the following records in the DynamoDB table.
 ## References
 
 - [AWS Glue](https://aws.amazon.com/glue/)
+- [Connection types and options for ETL in AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-connect.html#aws-glue-programming-etl-connect-dynamodb)
 - [PySpark Glue Tutorial](https://github.com/johnny-chivers/pyspark-glue-tutorial)
 - [How to export an Amazon DynamoDB table to Amazon S3 using AWS Step Functions and AWS Glue](https://aws.amazon.com/blogs/big-data/how-to-export-an-amazon-dynamodb-table-to-amazon-s3-using-aws-step-functions-and-aws-glue/)
 
