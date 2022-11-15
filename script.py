@@ -8,7 +8,7 @@ from pyspark.context import SparkContext
 from awsglue.context import GlueContext
 from awsglue.job import Job
 
-## @params: [JOB_NAME]
+# @params: [JOB_NAME]
 args = getResolvedOptions(sys.argv, ['JOB_NAME'])
 
 sc = SparkContext()
@@ -29,14 +29,14 @@ dyf = glueContext.create_dynamic_frame.from_options(
 )
 
 print(f"Count Items: {dyf.count()}")
-print(f"Items:")
-dyf.show()
+# print("Items:")
+# dyf.show()
 
 filtered_dyf = dyf.filter(f=lambda x: "category" not in x)
 
 print(f"Count Items without category: {filtered_dyf.count()}")
-print(f"Items without category:")
-filtered_dyf.show()
+#print("Items without category:")
+# filtered_dyf.show()
 
 
 def add_category(row):
@@ -46,18 +46,19 @@ def add_category(row):
     return row
 
 
-# Filter out the rows that no have category
-updated_dyf = filtered_dyf.map(add_category)
-updated_dyf.printSchema()
-
-# Show date filtered
-updated_dyf.show()
-
 if filtered_dyf.count() < 1:
     print('There are no items to process')
     os._exit(0)
 else:
     print('There are items to process')
+
+    # Filter out the rows that no have category
+    updated_dyf = filtered_dyf.map(add_category)
+    updated_dyf.printSchema()
+
+    # Show date filtered
+    # updated_dyf.show()
+
     # Update the table
     new_data = DynamicFrame.fromDF(updated_dyf.toDF(), glueContext, "new_data")
 
